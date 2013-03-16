@@ -28,8 +28,7 @@ public class Book {
 	}
 	
 	public int stock_amount(){
-		//return self.getTotal_amount() - self.getLent_amount();
-		return 1;
+		return this.getTotal_amount() - this.getLent_amount();
 	}
 	
 
