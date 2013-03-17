@@ -8,6 +8,7 @@ public class Associate {
 	
 	public Associate (String name){
 		this.name=name;
+		this.books= new ArrayList<Book>();
 	}
 
 	public String getName() {

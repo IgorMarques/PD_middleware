@@ -12,7 +12,8 @@ public class Server {
 	private ArrayList<Librarian> onlineLibrarians;
 	
 	public Server(Library library){
-		this.library = library;		
+		this.library = library;	
+		this.onlineLibrarians= new ArrayList<Librarian>();
 	}
 	
 	public Library getLibrary() {
