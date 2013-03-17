@@ -39,6 +39,15 @@ public class Library {
 		return false;
 	}
 	
+	public boolean checkLibrarianExistance(Librarian librarian){
+		for (Librarian l: librarians){
+			if ( librarian.equals(l) ){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean checkBookExistance(Book book){
 		for (Book b: books){
 			if ( book.equals(b) ){

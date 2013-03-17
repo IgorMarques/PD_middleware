@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import library.core.Associate;
 import library.core.Book;
+import library.core.Librarian;
 import library.core.Library;
 
 public class Server {	
 	private Library library;
-	private ArrayList<Associate> onlineAssociates;
+	private ArrayList<Librarian> onlineLibrarians;
 	
 	public Library getLibrary() {
 		return library;
@@ -17,37 +18,37 @@ public class Server {
 		this.library = library;
 	}
 	
-	public ArrayList<Associate> getOnlineAssociates() {
-		return onlineAssociates;
+	public ArrayList<Librarian> getOnlineLibrarian() {
+		return onlineLibrarians;
 	}
-	public void setOnlineAssociates(ArrayList<Associate> onlineAssociates) {
-		this.onlineAssociates = onlineAssociates;
-	}
-	
-	public boolean login(Associate associate){
-		if (this.library.checkAssociateExistance(associate)){
-			this.onlineAssociates.add(associate);
-			return true;
-		}
-		else return false;
+	public void setOnlineLibrarian(ArrayList<Librarian> onlineLibrarians) {
+		this.onlineLibrarians = onlineLibrarians;
 	}
 	
-	public boolean checkOnlineAssociateExistance(Associate associate){
-		for (Associate a: onlineAssociates){
-			if ( associate.equals(a) ){
+	public boolean checkOnlineLibrarianExistance(Librarian librarian){
+		for (Librarian l: onlineLibrarians){
+			if ( librarian.equals(l) ){
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean logoff(Associate associate){
-		if (this.checkOnlineAssociateExistance(associate)){ 
+	public boolean login(Librarian librarian){
+		if (this.library.checkLibrarianExistance(librarian)){
+			this.onlineLibrarians.add(librarian);
+			return true;
+		}
+		else return false;
+	}
+
+	public boolean logoff(Librarian librarian){
+		if (this.checkOnlineLibrarianExistance(librarian)){ 
 			
-			for (int i = 0; i < this.onlineAssociates.size(); i++){ 
+			for (int i = 0; i < this.onlineLibrarians.size(); i++){ 
 				
-				if (associate.equals( this.onlineAssociates.get(i) )){
-					this.onlineAssociates.remove(i);
+				if (librarian.equals( this.onlineLibrarians.get(i) )){
+					this.onlineLibrarians.remove(i);
 					return true;
 				}
 			}
@@ -71,4 +72,5 @@ public class Server {
 		}
 		return false;
 	}
+
 }
