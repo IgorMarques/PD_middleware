@@ -30,6 +30,10 @@ public class Server {
 		this.onlineLibrarians = onlineLibrarians;
 	}
 	
+	public void bookStatus(){
+		this.library.bookStatus();
+	}
+	
 	public boolean checkOnlineLibrarianExistance(Librarian librarian){
 		for (Librarian l: onlineLibrarians){
 			if ( librarian.equals(l) ){

@@ -37,6 +37,15 @@ public class Library {
 		this.librarians = librarians;
 	}
 	
+	public void bookStatus(){
+		System.out.println("\n\n--Status dos Livros---\n");
+		for(Book b: books){
+			System.out.printf("-Título: %s\n", b.getTitle());
+			System.out.printf("--Quantidade disponível para empréstimo: %d\n", b.stock_amount());
+		}
+		System.out.println("\n");
+	}
+	
 	public boolean checkAssociateExistance(Associate associate){
 		for (Associate a: associates){
 			if ( associate.equals(a) ){
@@ -89,6 +98,14 @@ public class Library {
 	
 	public boolean returnBook(Book book, Associate associate){
 		if (associate.removeBook(book)) {
+			for(Book b:books){
+				if (book.equals(b)){
+					int lentAmount= b.getLentAmount();
+					lentAmount--;
+					b.setLentAmount(lentAmount);
+				}
+				
+			}
 			return true;
 		}
 		else return false;

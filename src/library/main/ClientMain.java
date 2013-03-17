@@ -47,7 +47,9 @@ public class ClientMain {
 		
 		client.login();
 		client.getBook(book1, associate1);
+		client.getBookStatus();		
 		client.returnBook(book1, associate1);
+		client.getBookStatus();
 		client.logoff();
 		
 		

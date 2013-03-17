@@ -48,6 +48,10 @@ public class Client {
 		}
 	}
 	
+	public void getBookStatus(){
+		this.server.bookStatus();
+	}
+	
 	
 	public void getBook(Book book, Associate associate){
 		if (this.server.lendBook(book, associate)){
