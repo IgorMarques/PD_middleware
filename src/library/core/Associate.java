@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Associate {
 	private String name;
 	private ArrayList<Book> books;
+	
+	public Associate (String name){
+		this.name=name;
+	}
 
 	public String getName() {
 		return name;

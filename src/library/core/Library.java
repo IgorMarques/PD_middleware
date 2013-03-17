@@ -7,6 +7,15 @@ public class Library {
 	private ArrayList<Book> books;
 	private ArrayList<Librarian> librarians;
 	
+	public Library(ArrayList<Associate> associates,
+				   ArrayList<Book> books, 
+				   ArrayList<Librarian> librarians ){
+		this.associates= associates;
+		this.books= books;
+		this.librarians= librarians;
+		
+	}
+	
 	public ArrayList<Book> getBooks() {
 		return books;
 	}
@@ -19,8 +28,6 @@ public class Library {
 	}
 	public void setAssociates(ArrayList<Associate> associates) {
 		this.associates = associates;
-	}{
-		
 	}
 	
 	public ArrayList<Librarian> getLibrarians() {

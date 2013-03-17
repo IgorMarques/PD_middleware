@@ -11,6 +11,10 @@ public class Server {
 	private Library library;
 	private ArrayList<Librarian> onlineLibrarians;
 	
+	public Server(Library library){
+		this.library = library;		
+	}
+	
 	public Library getLibrary() {
 		return library;
 	}

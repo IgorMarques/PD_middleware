@@ -4,6 +4,11 @@ public class Librarian {
 	private String username;
 	private String password;
 	
+	public Librarian(String name, String password){
+		this.username=name;
+		this.password=password;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

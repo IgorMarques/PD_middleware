@@ -6,6 +6,12 @@ public class Book {
 	private int totalAmount;
 	private int lentAmount;
 	
+	public Book(String title, int totalAmount){
+		this.title = title;
+		this.totalAmount = totalAmount;
+		this.lentAmount = 0;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

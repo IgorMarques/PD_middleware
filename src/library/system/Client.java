@@ -8,6 +8,12 @@ public class Client {
 	private Librarian librarian;
 	private Server server;
 
+	public Client(Librarian librarian, Server server){
+		this.librarian = librarian;
+		this.server = server; 
+		
+	}
+	
 	public Librarian getLibrarian() {
 		return librarian;
 	}
