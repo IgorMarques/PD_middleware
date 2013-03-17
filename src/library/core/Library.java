@@ -30,7 +30,25 @@ public class Library {
 		this.librarians = librarians;
 	}
 	
-	public boolean lend_book(Book book, Associate associate){
+	public boolean checkAssociateExistance(Associate associate){
+		for (Associate a: associates){
+			if ( associate.equals(a) ){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkBookExistance(Book book){
+		for (Book b: books){
+			if ( book.equals(b) ){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean lendBook(Book book, Associate associate){
 		for (Associate a: associates){
 			if (associate.equals(a)){
 				for(Book b:books){
