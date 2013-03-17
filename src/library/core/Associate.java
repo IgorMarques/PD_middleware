@@ -22,4 +22,20 @@ public class Associate {
 		this.books = books;
 	}
 	
+	public void addBook(Book book){
+		this.books.add(book);
+	}
+	
+	public boolean removeBook(Book book){
+		for (int i = 0; i < this.books.size(); i++){ 
+		
+			if (book.equals( this.books.get(i) )){
+				this.books.remove(i);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }

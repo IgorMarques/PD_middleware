@@ -3,8 +3,8 @@ package library.core;
 public class Book {
 	
 	private String title;
-	private int total_amount;
-	private int lent_amount;
+	private int totalAmount;
+	private int lentAmount;
 	
 	public String getTitle() {
 		return title;
@@ -13,22 +13,21 @@ public class Book {
 		this.title = title;
 	}
 	
-	public int getTotal_amount() {
-		return total_amount;
+	public int getLentAmount() {
+		return lentAmount;
 	}
-	public void setTotal_amount(int total_amount) {
-		this.total_amount = total_amount;
+	public void setLentAmount(int lentAmount) {
+		this.lentAmount = lentAmount;
 	}
-	
-	public int getLent_amount() {
-		return lent_amount;
+	public int getTotalAmount() {
+		return totalAmount;
 	}
-	public void setLent_amount(int lent_amount) {
-		this.lent_amount = lent_amount;
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 	
 	public int stock_amount(){
-		return this.getTotal_amount() - this.getLent_amount();
+		return this.getTotalAmount() - this.getLentAmount();
 	}
 	
 
