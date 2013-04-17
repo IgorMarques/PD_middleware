@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Requestor {
 	private static Requestor instance= null;
 	static Marshaller marshaller = Marshaller.getInstance();
-	static ClientRequestHandler clientHandler = new ClientRequestHandler();
+	static IClientRequestHandler clientHandler = new ClientRequestHandler();
 	
 	private Requestor(){ 
 		
@@ -23,23 +23,23 @@ public class Requestor {
 	}
 	
 	public static void invoke(String object, String objectID, String method, ArrayList<String> params){
-		SOAPMessage message = null;
-		
-		try {
-			message = MessageFactory.newInstance().createMessage();
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			message = Marshaller.marshall(object,objectID, method, params);
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		clientHandler.sendMessage(message);
+//		SOAPMessage message = null;
+//		
+//		try {
+//			message = MessageFactory.newInstance().createMessage();
+//		} catch (SOAPException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		try {
+//			message = Marshaller.marshall(object,objectID, method, params);
+//		} catch (SOAPException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		clientHandler.sendMessage(message);
 	}
 	
 }

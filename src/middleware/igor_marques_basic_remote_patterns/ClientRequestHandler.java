@@ -1,61 +1,78 @@
 package middleware.igor_marques_basic_remote_patterns;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+//import java.net.MalformedURLException;
+//import java.net.URL;
+//
+//import javax.xml.soap.SOAPConnection;
+//import javax.xml.soap.SOAPConnectionFactory;
+//import javax.xml.soap.SOAPException;
+//import javax.xml.soap.SOAPMessage;
 
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
 
+public class ClientRequestHandler implements IClientRequestHandler {
 
-public class ClientRequestHandler {
-	
-	private SOAPConnectionFactory myFct = null;
-	private SOAPConnection connection = null;
-	private URL endPoint = null;
-	
-	public ClientRequestHandler(){
-		try {
-			myFct = SOAPConnectionFactory.newInstance();
-		} catch (UnsupportedOperationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	@Override
+	public void sendMessage(Message message) {
+		// TODO Auto-generated method stub
 		
-		try {
-			 connection = myFct.createConnection();
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			endPoint = new URL("127.1.1.1");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void sendMessage(SOAPMessage message) {
-		try {
-			SOAPMessage reply = this.connection.call(message, this.endPoint);
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
-	public void closeConnection(){
-		try {
-			this.connection.close();
-		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+	public String toString(){
+		return "mah oe";
 	}
 }
+
+//private SOAPConnectionFactory myFct = null;
+//private SOAPConnection connection = null;
+//private URL endPoint = null;
+//	try {
+//		myFct = SOAPConnectionFactory.newInstance();
+//	} catch (UnsupportedOperationException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (SOAPException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	
+//	try {
+//		 connection = myFct.createConnection();
+//	} catch (SOAPException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	
+//	try {
+//		endPoint = new URL("127.1.1.1");
+//	} catch (MalformedURLException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//}
+//
+///* (non-Javadoc)
+// * @see middleware.igor_marques_basic_remote_patterns.IClientRequestHandler#sendMessage(javax.xml.soap.SOAPMessage)
+// */
+//@Override
+//public void sendMessage(SOAPMessage message) {
+//	try {
+//		SOAPMessage reply = this.connection.call(message, this.endPoint);
+//	} catch (SOAPException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//}
+//
+///* (non-Javadoc)
+// * @see middleware.igor_marques_basic_remote_patterns.IClientRequestHandler#closeConnection()
+// */
+//@Override
+//public void closeConnection(){
+//	try {
+//		this.connection.close();
+//	} catch (SOAPException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//}

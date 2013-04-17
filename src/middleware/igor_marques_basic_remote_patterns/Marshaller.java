@@ -17,55 +17,63 @@ public class Marshaller{
 	
 	protected Marshaller(){ };
 	
-	public static Marshaller getInstance(){
+	public synchronized static Marshaller getInstance(){
 		if (instance==null){
 			instance = new Marshaller();
 		}
 		return instance;
 	}
 	
-	protected static SOAPMessage marshall(String object, String objectID, String method, ArrayList<String> params) throws SOAPException{
-		SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
-		
-	    SOAPPart soapPart = soapMessage.getSOAPPart();
-	    SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
-	    SOAPBody soapBody = soapEnvelope.getBody();
-	    
-	    //Adicionando objeto
-	    
-	    Name bodyName = soapEnvelope.createName("Object");
-	    
-	    SOAPBodyElement requestedObject = soapBody.addBodyElement(bodyName);
-	    
-	    requestedObject.addTextNode(object);
-	    
-	    //Adicionando ID do objeto
-	    
-	    bodyName = soapEnvelope.createName("ObjectID");
-	    
-	    SOAPBodyElement requestedObjectID = soapBody.addBodyElement(bodyName);
-	    
-	    requestedObjectID.addTextNode(objectID);
-	    
-	    //Adicionando método
-	    
-	    bodyName = soapEnvelope.createName("Method");
-	    
-	    SOAPBodyElement requestedMethod = soapBody.addBodyElement(bodyName);
-	    
-	    requestedMethod.addTextNode(method);
-	    
-	    //Adicionando parâmetros
-	    
-	    bodyName= soapEnvelope.createName("Params");
-	    
-	    SOAPBodyElement requestedParams = soapBody.addBodyElement(bodyName);
-	    
-	    for(String p:params){
-	    	requestedParams.addTextNode(p);
-	    }
-	    
-		return soapMessage;
+	public Message marshall(ISerializable object){
+		return object.serialize();
 	}
 
+
 }
+
+//	
+
+//protected static SOAPMessage marshall(String object, String objectID, String method, ArrayList<String> params) throws SOAPException{
+//	return null;
+//} 
+//	SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
+//	
+//    SOAPPart soapPart = soapMessage.getSOAPPart();
+//    SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
+//    SOAPBody soapBody = soapEnvelope.getBody();
+//    
+//    //Adicionando objeto
+//    
+//    Name bodyName = soapEnvelope.createName("Object");
+//    
+//    SOAPBodyElement requestedObject = soapBody.addBodyElement(bodyName);
+//    
+//    requestedObject.addTextNode(object);
+//    
+//    //Adicionando ID do objeto
+//    
+//    bodyName = soapEnvelope.createName("ObjectID");
+//    
+//    SOAPBodyElement requestedObjectID = soapBody.addBodyElement(bodyName);
+//    
+//    requestedObjectID.addTextNode(objectID);
+//    
+//    //Adicionando método
+//    
+//    bodyName = soapEnvelope.createName("Method");
+//    
+//    SOAPBodyElement requestedMethod = soapBody.addBodyElement(bodyName);
+//    
+//    requestedMethod.addTextNode(method);
+//    
+//    //Adicionando parâmetros
+//    
+//    bodyName= soapEnvelope.createName("Params");
+//    
+//    SOAPBodyElement requestedParams = soapBody.addBodyElement(bodyName);
+//    
+//    for(String p:params){
+//    	requestedParams.addTextNode(p);
+//    }
+//    
+//	return soapMessage;
