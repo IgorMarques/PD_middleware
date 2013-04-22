@@ -9,7 +9,7 @@ import library.core.Librarian;
 import library.core.Library;
 import library.system.Client;
 import library.system.Server;
-import middleware.igor_marques_basic_remote_patterns.ClientRequestHandler;
+import middleware.igor_marques_basic_remote_patterns.AbstractClientRequestHandler;
 import middleware.igor_marques_basic_remote_patterns.ClientRequestHandlerFactory;
 import middleware.igor_marques_basic_remote_patterns.IClientRequestHandler;
 
@@ -59,7 +59,7 @@ public class ClientMain {
 		ClientRequestHandlerFactory fac = new ClientRequestHandlerFactory();
 		IClientRequestHandler handinho = null;
 		
-		fac.registerClass("ZUERA", ClientRequestHandler.class);
+		fac.registerClass("ZUERA", AbstractClientRequestHandler.class);
 		
 		try {
 			handinho=	(IClientRequestHandler) fac.getImplementation("ZUERA");
