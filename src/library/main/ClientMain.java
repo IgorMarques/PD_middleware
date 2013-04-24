@@ -9,9 +9,9 @@ import library.core.Librarian;
 import library.core.Library;
 import library.system.Client;
 import library.system.Server;
-import middleware.igor_marques_basic_remote_patterns.AbstractClientRequestHandler;
-import middleware.igor_marques_basic_remote_patterns.ClientRequestHandlerFactory;
-import middleware.igor_marques_basic_remote_patterns.IClientRequestHandler;
+import middleware.igor_marques_basic_remote_patterns.client.AbstractClientRequestHandler;
+import middleware.igor_marques_basic_remote_patterns.client.ClientRequestHandlerFactory;
+import middleware.igor_marques_basic_remote_patterns.client.IClientRequestHandler;
 
 public class ClientMain {
 
