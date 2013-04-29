@@ -6,5 +6,7 @@ public class Message {
 	public String objectID;
 	public String method;
 	public String[] params;
+	
+	//botar invocation context
 
 }

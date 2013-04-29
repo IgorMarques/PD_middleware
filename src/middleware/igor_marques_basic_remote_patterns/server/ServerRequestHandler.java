@@ -11,6 +11,8 @@ public class ServerRequestHandler implements IServerRequestHandler{
 		
 	}
 
+	//USAR HTTP SERVER
+	
 	@Override
 	public void receiveMessage() {
 		// TODO Auto-generated method stub
