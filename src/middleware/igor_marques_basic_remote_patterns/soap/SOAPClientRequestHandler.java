@@ -1,5 +1,6 @@
 package middleware.igor_marques_basic_remote_patterns.soap;
 
+<<<<<<< HEAD
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,14 +11,22 @@ import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeader;
 import javax.xml.soap.MimeHeaders;
+=======
+import java.net.URL;
+
+import javax.xml.soap.MessageFactory;
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPBodyElement;
 import javax.xml.soap.SOAPConnection;
 import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
+<<<<<<< HEAD
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPHeaderElement;
+=======
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 import javax.xml.soap.Name;
@@ -26,11 +35,14 @@ import middleware.igor_marques_basic_remote_patterns.client.AbstractClientReques
 import middleware.igor_marques_basic_remote_patterns.common.Message;
 
 public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
+<<<<<<< HEAD
 	private String namespaceURI;
 	
 	public SOAPClientRequestHandler(String namespaceURI) {
 		this.namespaceURI = namespaceURI;
 	}
+=======
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 	
 	@Override
 	public void sendMessage(Message message, URL endpoint) throws SOAPException {
@@ -42,6 +54,7 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 		//criando mensagem		
 		SOAPMessage soapMessage = null;
 		
+<<<<<<< HEAD
 		soapMessage = MessageFactory.newInstance().createMessage();	
 			
 //		SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -150,6 +163,53 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 		}
 		
 	}
+=======
+		soapMessage = MessageFactory.newInstance().createMessage();
+		
+		SOAPPart soapPart = soapMessage.getSOAPPart();
+		SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
+		SOAPBody soapBody = soapEnvelope.getBody();
+		
+		//Adicionando objeto
+		
+		Name bodyName = soapEnvelope.createName("Object");
+		
+		SOAPBodyElement requestedObject = soapBody.addBodyElement(bodyName);
+		
+		requestedObject.addTextNode(message.object);
+		
+		//Adicionando ID do objeto
+		
+		bodyName = soapEnvelope.createName("ObjectID");
+		
+		SOAPBodyElement requestedObjectID = soapBody.addBodyElement(bodyName);
+		
+		requestedObjectID.addTextNode(message.objectID);
+		
+		//Adicionando metodo
+		
+		bodyName = soapEnvelope.createName("Method");
+		
+		SOAPBodyElement requestedMethod = soapBody.addBodyElement(bodyName);
+		
+		requestedMethod.addTextNode(message.method);
+		
+		//Adicionando parametros
+		
+		bodyName= soapEnvelope.createName("Params");
+		
+		SOAPBodyElement requestedParams = soapBody.addBodyElement(bodyName);
+		
+		for(String p:message.params){
+			requestedParams.addTextNode(p);
+		}
+		
+		//Enviando mensagem
+	     SOAPMessage response = connection.call(soapMessage, endpoint);		
+		
+	}
+
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 	@Override
 	public void listenMessage() {
 		// TODO ouvir messages soap
@@ -160,4 +220,72 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 			//passa pro ClientRequestListener	
 	}
 	
+<<<<<<< HEAD
 }
+=======
+}
+
+//SOAPMessage message = null;
+//
+//try {
+//message = MessageFactory.newInstance().createMessage();
+//} catch (SOAPException e) {
+//// TODO Auto-generated catch block
+//e.printStackTrace();
+//}
+//
+//try {
+//message = Marshaller.marshall(object,objectID, method, params);
+//} catch (SOAPException e) {
+//// TODO Auto-generated catch block
+//e.printStackTrace();
+//}
+//
+//clientHandler.sendMessage(message);
+
+
+//protected static SOAPMessage marshall(String object, String objectID, String method, ArrayList<String> params) throws SOAPException{
+//return null;
+//} 
+//SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
+//
+//SOAPPart soapPart = soapMessage.getSOAPPart();
+//SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
+//SOAPBody soapBody = soapEnvelope.getBody();
+//
+////Adicionando objeto
+//
+//Name bodyName = soapEnvelope.createName("Object");
+//
+//SOAPBodyElement requestedObject = soapBody.addBodyElement(bodyName);
+//
+//requestedObject.addTextNode(object);
+//
+////Adicionando ID do objeto
+//
+//bodyName = soapEnvelope.createName("ObjectID");
+//
+//SOAPBodyElement requestedObjectID = soapBody.addBodyElement(bodyName);
+//
+//requestedObjectID.addTextNode(objectID);
+//
+////Adicionando m?todo
+//
+//bodyName = soapEnvelope.createName("Method");
+//
+//SOAPBodyElement requestedMethod = soapBody.addBodyElement(bodyName);
+//
+//requestedMethod.addTextNode(method);
+//
+////Adicionando par?metros
+//
+//bodyName= soapEnvelope.createName("Params");
+//
+//SOAPBodyElement requestedParams = soapBody.addBodyElement(bodyName);
+//
+//for(String p:params){
+//	requestedParams.addTextNode(p);
+//}
+//
+//return soapMessage;
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2

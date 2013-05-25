@@ -9,6 +9,7 @@ import javax.xml.ws.spi.http.HttpHandler;
 public class Connection {
 	private String hostIP;
 
+<<<<<<< HEAD
 	private  String hostPort;
 
 	public String getHostPort() {
@@ -26,5 +27,7 @@ public class Connection {
 	public void setHostIP(String hostIP) {
 		this.hostIP = hostIP;
 	}
+=======
+>>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 }
 
