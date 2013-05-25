@@ -12,7 +12,7 @@ public class Message{
 	
 	private HashMap<String, Object> params = new HashMap<String, Object>();
 	
-	public Message(String object, String objectID, String method, String... params){
+	public Message(String object, String objectID, String method, HashMap<String, Object> params){
 		this.object= object;
 		this.objectID = objectID;
 		this.method = method;
