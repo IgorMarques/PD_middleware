@@ -4,6 +4,7 @@ import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
+import middleware.igor_marques_basic_remote_patterns.common.Invocation;
 import middleware.igor_marques_basic_remote_patterns.common.InvocationContext;
 import middleware.igor_marques_basic_remote_patterns.common.Marshaller;
 import middleware.igor_marques_basic_remote_patterns.common.Message;
@@ -44,32 +45,15 @@ public class Requestor {
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callStarted();
-		
-		InvocationContext invocation = new InvocationContext(object, objectID, method);
-		invocation.setParam("bolado", "huehueheuheue");
+
+		Invocation invocation = new Invocation(marshaller.marshall(object, objectID, method,params ) );
 		
 		for (InvocationInterceptor ii : interceptors)
 			ii.intercept(invocation);
 					
 		IClientRequestHandler clientHandler = fac.getImplementation(protocol);
 		
-		Message message = new Message();
-		
-		message= marshaller.marshall(invocation);
-
-		InvocationContext invocation = new InvocationContext(object, objectID, method, params);
-		
-		for (InvocationInterceptor ii : interceptors)
-			ii.intercept(invocation);
-
-		for(IQoSObserver iqs : qosObserver)
-			iqs.callStarted();
-		
-			
-		Message message = marshaller.marshall(invocation);
-		IClientRequestHandler clientHandler = fac.getImplementation(protocol);
-		
-		clientHandler.sendMessage(message, null); //FALTA BOTAR O ENDPOINT
+		clientHandler.sendMessage(invocation, null); //FALTA BOTAR O ENDPOINT
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
@@ -95,4 +79,4 @@ public class Requestor {
 // }
 //
 // clientHandler.sendMessage(message);
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
+

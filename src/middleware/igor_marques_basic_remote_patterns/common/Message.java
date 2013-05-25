@@ -8,9 +8,26 @@ public class Message{
 	public String object;
 	public String objectID;
 	public String method;
+	public String[] params;
 	
-	private HashMap<String, Object> params = new HashMap<String, Object>();
+	//private HashMap<String, Object> params = new HashMap<String, Object>();
 	
+	public Message(String object, String objectID, String method, String... params){
+		this.object= object;
+		this.objectID = objectID;
+		this.method = method;
+		this.params = params;
+		
+	}
+	
+	public Message(Message message) {
+		this.object= message.object;
+		this.objectID = message.objectID;
+		this.method = message.method;
+		this.params = message.params;
+	}
+
+/*	
 	public Set<String> getParamsName() {
 		return params.keySet();
 	}
@@ -41,6 +58,7 @@ public class Message{
 	public void setMethod(String method) {
 		this.method = method;
 	}
+*/
 	
 	//botar invocation context
 

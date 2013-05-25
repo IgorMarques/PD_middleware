@@ -1,7 +1,6 @@
 package middleware.igor_marques_basic_remote_patterns.common;
 
-<<<<<<< HEAD
-=======
+
 import java.util.ArrayList;
 
 import javax.xml.soap.MessageFactory;
@@ -13,12 +12,11 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 public class Marshaller{
 	
 	private static Marshaller instance = null;
 	
-	protected Marshaller(){ };
+	protected Marshaller(){};
 	
 	public synchronized static Marshaller getInstance(){
 		if (instance==null){
@@ -27,22 +25,9 @@ public class Marshaller{
 		return instance;
 	}
 	
-<<<<<<< HEAD
-	public Message marshall(ISerializable<?> object){
-		return object.serialize();
+	public Message marshall(String object, String objectID, String method, String... params){
+		return new Message(object, objectID, method, params);
 	}
-
-	public Message demarshall(IDemarshallabe object){
-		return object.demarshall();
-	}
-
-}
-=======
-	public Message marshall(ISerializable object){
-		return object.serialize();
-	}
-
-
 }
 
 //	
@@ -91,4 +76,3 @@ public class Marshaller{
 //    }
 //    
 //	return soapMessage;
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
