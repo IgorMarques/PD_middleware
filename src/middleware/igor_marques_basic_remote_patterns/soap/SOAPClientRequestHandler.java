@@ -1,6 +1,5 @@
 package middleware.igor_marques_basic_remote_patterns.soap;
 
-<<<<<<< HEAD
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,38 +10,21 @@ import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeader;
 import javax.xml.soap.MimeHeaders;
-=======
-import java.net.URL;
-
-import javax.xml.soap.MessageFactory;
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPBodyElement;
 import javax.xml.soap.SOAPConnection;
 import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
-<<<<<<< HEAD
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
-=======
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
-import javax.xml.soap.Name;
 
 import middleware.igor_marques_basic_remote_patterns.client.AbstractClientRequestHandler;
 import middleware.igor_marques_basic_remote_patterns.common.Message;
 
 public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
-<<<<<<< HEAD
+
 	private String namespaceURI;
 	
 	public SOAPClientRequestHandler(String namespaceURI) {
 		this.namespaceURI = namespaceURI;
 	}
-=======
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 	
 	@Override
 	public void sendMessage(Message message, URL endpoint) throws SOAPException {
@@ -54,7 +36,6 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 		//criando mensagem		
 		SOAPMessage soapMessage = null;
 		
-<<<<<<< HEAD
 		soapMessage = MessageFactory.newInstance().createMessage();	
 			
 //		SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -112,117 +93,13 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 	    
 		
 	}
-	public static void main(String[] args) {
-		String namespace= "http://www.webserviceX.NET";
 
-		
-		SOAPClientRequestHandler sh = new SOAPClientRequestHandler(namespace);
-		
-		Message message = new Message();
-		
-		message.setMethod("GetWeather");
-
-	    message.setObjectID("");
-	    message.setObject("");
-	    
-		//String namespace= "http://tempuri.org";
-//	   	message.setMethod("CalcPrecoPrazo");
-//	    message.setParam("nCdEmpresa", "");
-//	    message.setParam("sDsSenha", "");
-//	    message.setParam("nCdServico", "40010");
-//	    message.setParam("sCepOrigem", "59040226");
-//	    message.setParam("sCepDestino", "59151250");
-//	    message.setParam("nVIPeso", "1");
-//	    message.setParam("nCdFormato", "1");
-//	    message.setParam("nVIComprimento", "80.5");
-//	    message.setParam("nVIAltura", "10.5");
-//	    message.setParam("nVILargura", "20.5");
-//	    message.setParam("nVIDiametro", "0");
-//	    message.setParam("sCdMaoPropria", "N");
-//	    message.setParam("nVIValorDeclarado", "0");
-//	    message.setParam("sCdAvisoRecebimento", "N");
-		
-		message.setParam("CountryName", "Brazil");
-		message.setParam("CityName", "Natal");
-
-//		
-////		message.setParams(new String[]{"hue", "br"});
-//		try {
-//			sh.sendMessage(message, new URL("http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx"));
-//		} catch (MalformedURLException | SOAPException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-	
-		try {
-			sh.sendMessage(message, new URL("http://www.webservicex.net/globalweather.asmx"));
-			//sh.sendMessage(message, new URL("http://ws.correios.com.br/calculador/calcprecoprazo.asmx"));
-		} catch (MalformedURLException | SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-=======
-		soapMessage = MessageFactory.newInstance().createMessage();
-		
-		SOAPPart soapPart = soapMessage.getSOAPPart();
-		SOAPEnvelope soapEnvelope = soapPart.getEnvelope();
-		SOAPBody soapBody = soapEnvelope.getBody();
-		
-		//Adicionando objeto
-		
-		Name bodyName = soapEnvelope.createName("Object");
-		
-		SOAPBodyElement requestedObject = soapBody.addBodyElement(bodyName);
-		
-		requestedObject.addTextNode(message.object);
-		
-		//Adicionando ID do objeto
-		
-		bodyName = soapEnvelope.createName("ObjectID");
-		
-		SOAPBodyElement requestedObjectID = soapBody.addBodyElement(bodyName);
-		
-		requestedObjectID.addTextNode(message.objectID);
-		
-		//Adicionando metodo
-		
-		bodyName = soapEnvelope.createName("Method");
-		
-		SOAPBodyElement requestedMethod = soapBody.addBodyElement(bodyName);
-		
-		requestedMethod.addTextNode(message.method);
-		
-		//Adicionando parametros
-		
-		bodyName= soapEnvelope.createName("Params");
-		
-		SOAPBodyElement requestedParams = soapBody.addBodyElement(bodyName);
-		
-		for(String p:message.params){
-			requestedParams.addTextNode(p);
-		}
-		
-		//Enviando mensagem
-	     SOAPMessage response = connection.call(soapMessage, endpoint);		
-		
-	}
-
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
 	@Override
 	public void listenMessage() {
-		// TODO ouvir messages soap
-		//abrir threaad
-		//ficar ouvindo
-			//message chegou
-			//transforma em message
-			//passa pro ClientRequestListener	
+		// TODO Auto-generated method stub
+		
 	}
-	
-<<<<<<< HEAD
-}
-=======
+
 }
 
 //SOAPMessage message = null;
@@ -288,4 +165,4 @@ public class SOAPClientRequestHandler extends AbstractClientRequestHandler{
 //}
 //
 //return soapMessage;
->>>>>>> 1f7b9de1b4d60e1f870f1899a389d62e46bbc0c2
+
