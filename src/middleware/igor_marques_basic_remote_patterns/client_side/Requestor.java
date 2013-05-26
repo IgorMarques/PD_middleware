@@ -14,6 +14,7 @@ import extended_infraestructure.IQoSObserver;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Requestor {
 	
@@ -41,7 +42,7 @@ public class Requestor {
 		return instance;
 	}
 
-	public static void invoke(String object, String objectID, String method, String... params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
+	public static void invoke(String object, String objectID, String method, HashMap<String, Object>[]... params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callStarted();
