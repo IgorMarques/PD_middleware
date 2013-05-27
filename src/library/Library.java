@@ -2,7 +2,10 @@ package library;
 
 import java.util.ArrayList;
 
-public class Library {
+import middleware.igor_marques_basic_remote_patterns.server_side.AbstractRemoteObject;
+
+
+public class Library extends AbstractRemoteObject {
 	private ArrayList<Associate> associates;
 	private ArrayList<Book> books;
 	private ArrayList<Librarian> librarians;
@@ -16,6 +19,7 @@ public class Library {
 		
 	}
 	
+	@Url( value = "/book/all")
 	public ArrayList<Book> getBooks() {
 		return books;
 	}
@@ -23,6 +27,7 @@ public class Library {
 		this.books = books;
 	}
 	
+	@Url( value = "/associate/all")
 	public ArrayList<Associate> getAssociates() {
 		return associates;
 	}
@@ -30,6 +35,7 @@ public class Library {
 		this.associates = associates;
 	}
 	
+	@Url( value = "/librarian/all")
 	public ArrayList<Librarian> getLibrarians() {
 		return librarians;
 	}
@@ -73,6 +79,7 @@ public class Library {
 		return false;
 	}
 	
+	@Url( value = "/books/lend")
 	public boolean lendBook(Book book, Associate associate){
 		for (Associate a: associates){
 			if (associate.equals(a)){
@@ -96,6 +103,7 @@ public class Library {
 		return false;
 	}
 	
+	@Url( value = "/books/return")
 	public boolean returnBook(Book book, Associate associate){
 		if (associate.removeBook(book)) {
 			for(Book b:books){

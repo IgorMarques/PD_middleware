@@ -6,10 +6,6 @@ public interface IServerRequestHandler {
 	public void sendMessage();
 	
 	public void receiveMessage();
-	
-
-	public void listenConnections();
-	
 }
 
 //public void openConnection();

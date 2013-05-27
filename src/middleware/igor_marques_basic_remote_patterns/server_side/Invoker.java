@@ -1,6 +1,12 @@
 package middleware.igor_marques_basic_remote_patterns.server_side;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URI;
 import java.util.ArrayList;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
 import middleware.igor_marques_basic_remote_patterns.InvocationContext;
 import extension.InvocationInterceptor;
@@ -25,6 +31,5 @@ public class Invoker {
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
-		
 	}
 }
