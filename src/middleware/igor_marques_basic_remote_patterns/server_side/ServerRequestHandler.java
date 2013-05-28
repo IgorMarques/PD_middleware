@@ -41,9 +41,9 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 		
 		try {
 			String urlParameters =
-			        "fName=" + URLEncoder.encode("hueheueh", "UTF-8") +
-			        "&lName=" + URLEncoder.encode("brbrbr", "UTF-8");
-			System.out.println(ServerRequestHandler.executePost("http://localhost:3333/huehue/br", urlParameters));
+			        "fName=" + URLEncoder.encode("fname", "UTF-8") +
+			        "&lName=" + URLEncoder.encode("lname", "UTF-8");
+			System.out.println(ServerRequestHandler.executePost("http://localhost:3333/", urlParameters));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +61,8 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 
 	@Override
 	public void handle(HttpExchange t) throws IOException {
+		
+		//mudar pra resposta de verdade
 		String response = ""
 				+ "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 				+ "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">"
@@ -70,7 +72,7 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 				+ "</GetWeatherResponse>" + "</soap12:Body>"
 				+ "</soap12:Envelope>";
 
-		System.out.println(response);
+		//System.out.println(response);
 		t.sendResponseHeaders(200, response.length());
 		OutputStream os = t.getResponseBody();
 		os.write(response.getBytes());
@@ -78,7 +80,7 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 		
 	}
 
-	public void hue(HttpExchange t) throws IOException {
+	public void httpExchangePrinter(HttpExchange t) throws IOException {
         final InputStream is;
         final OutputStream os;
         StringBuilder buf;
@@ -220,11 +222,12 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 	    }
 	  }
 	
+	//isso aqui vai pro main do server de verdade
 	public static void main(String[] args) {
-		ServerRequestHandler hue;
+		ServerRequestHandler server;
 		try {
-			hue = new ServerRequestHandler();
-			hue.start();
+			server = new ServerRequestHandler();
+			server.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

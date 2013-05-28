@@ -6,8 +6,8 @@ import javax.xml.soap.SOAPMessage;
 
 import middleware.igor_marques_basic_remote_patterns.Invocation;
 import middleware.igor_marques_basic_remote_patterns.InvocationContext;
+import middleware.igor_marques_basic_remote_patterns.Marshaller;
 import middleware.igor_marques_basic_remote_patterns.Message;
-import middleware.igor_marques_basic_remote_patterns.client_side.Marshaller;
 import middleware.igor_marques_basic_remote_patterns.client_side.SOAPClientRequestHandler;
 import extension.InvocationInterceptor;
 import extended_infraestructure.IQoSObserver;
@@ -42,13 +42,13 @@ public class Requestor {
 		return instance;
 	}
 
-	public static void invoke(String object, String objectID, String method, HashMap<String, Object>[]... params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
+	public static void invoke(String object, String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callStarted();
 
-		Invocation invocation = new Invocation(marshaller.marshall(object, objectID, method,params ) );
-		
+		Message msg = new Message(object, objectID, method, params);
+			
 		for (InvocationInterceptor ii : interceptors)
 			ii.intercept(invocation);
 					
