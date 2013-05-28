@@ -44,40 +44,36 @@ public class Requestor {
 
 	public static void invoke(String object, String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		
-		for(IQoSObserver iqs : qosObserver)
-			iqs.callStarted();
+		String namespaceURI ="";
+		
+		//for(IQoSObserver iqs : qosObserver)
+		//	iqs.callStarted();
 
 		Message msg = new Message(object, objectID, method, params);
 			
-		for (InvocationInterceptor ii : interceptors)
-			ii.intercept(invocation);
+		Invocation invocation = new Invocation(msg);
+		
+		//for (InvocationInterceptor ii : interceptors)
+		//	ii.intercept(invocation);
 					
 		IClientRequestHandler clientHandler = fac.getImplementation(protocol);
 		
-		clientHandler.sendMessage(invocation, null); //FALTA BOTAR O ENDPOINT
+		StringBuilder message = marshaller.marshall(invocation, namespaceURI);
+		
+		clientHandler.sendMessage(message, method, "127.1.1.1"); //FALTA BOTAR O ENDPOINT
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
 	}
 	
+	
+	public static void main(String[] args) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
+		Requestor requestor = Requestor.getInstance();
+		
+		HashMap<String, Object> params = null;
+		
+		
+		invoke("a", "b", protocol, params);
+	}
 }
-
-
-// SOAPMessage message = null;
-//
-// try {
-// message = MessageFactory.newInstance().createMessage();
-// } catch (SOAPException e) {
-// // TODO Auto-generated catch block
-// e.printStackTrace();
-// }
-//
-// try {
-// message = Marshaller.marshall(object,objectID, method, params);
-// } catch (SOAPException e) {
-// // TODO Auto-generated catch block
-// e.printStackTrace();
-// }
-//
-// clientHandler.sendMessage(message);
 

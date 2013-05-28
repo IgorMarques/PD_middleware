@@ -33,7 +33,7 @@ public class Marshaller{
 		return instance;
 	}
 	
-	public StringBuilder marshall(Message message, String namespaceURI) throws SOAPException{
+	public StringBuilder marshall(Invocation message, String namespaceURI) throws SOAPException{
 	
 		SOAPMessage soapMessage = null;
 					

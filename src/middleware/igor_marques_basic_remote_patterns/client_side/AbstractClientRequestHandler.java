@@ -1,5 +1,7 @@
 package middleware.igor_marques_basic_remote_patterns.client_side;
 
+import java.net.URL;
+
 public abstract class AbstractClientRequestHandler implements IClientRequestHandler {
 	private ClientRequestListener listener;
 
@@ -9,6 +11,11 @@ public abstract class AbstractClientRequestHandler implements IClientRequestHand
 
 	public void setListener(ClientRequestListener listener) {
 		this.listener = listener;
+	}
+
+	public void sendMessage(StringBuilder message, URL endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
