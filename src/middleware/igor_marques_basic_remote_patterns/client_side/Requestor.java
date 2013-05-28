@@ -4,7 +4,7 @@ import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-import middleware.igor_marques_basic_remote_patterns.Invocation;
+import middleware.igor_marques_basic_remote_patterns.InvocationData;
 import middleware.igor_marques_basic_remote_patterns.InvocationContext;
 import middleware.igor_marques_basic_remote_patterns.Marshaller;
 import middleware.igor_marques_basic_remote_patterns.Message;
@@ -42,7 +42,7 @@ public class Requestor {
 		return instance;
 	}
 
-	public static void invoke(String object, String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
+	public void invoke(String object, String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		
 		String namespaceURI ="";
 		
@@ -51,7 +51,7 @@ public class Requestor {
 
 		Message msg = new Message(object, objectID, method, params);
 			
-		Invocation invocation = new Invocation(msg);
+		InvocationData invocation = new InvocationData(msg);
 		
 		//for (InvocationInterceptor ii : interceptors)
 		//	ii.intercept(invocation);
@@ -60,7 +60,7 @@ public class Requestor {
 		
 		StringBuilder message = marshaller.marshall(invocation, namespaceURI);
 		
-		clientHandler.sendMessage(message, method, "127.1.1.1"); //FALTA BOTAR O ENDPOINT
+		clientHandler.sendMessage(message, method, "127.0.0.1"); //FALTA BOTAR O ENDPOINT
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
@@ -73,7 +73,7 @@ public class Requestor {
 		HashMap<String, Object> params = null;
 		
 		
-		invoke("a", "b", protocol, params);
+		requestor.invoke("a", "b", protocol, params);
 	}
 }
 

@@ -38,17 +38,6 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 		server.createContext("/", this);
 		server.setExecutor(null);
 		server.start();
-		
-		try {
-			String urlParameters =
-			        "fName=" + URLEncoder.encode("fname", "UTF-8") +
-			        "&lName=" + URLEncoder.encode("lname", "UTF-8");
-			System.out.println(ServerRequestHandler.executePost("http://localhost:3333/", urlParameters));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 
 	@Override
