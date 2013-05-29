@@ -28,7 +28,7 @@ public class SOAPMessageProtocol extends MessageProtocol {
 		URL url;
 		HttpURLConnection connection = null;
 		
-		String urlParams = generateParams(invocation);
+		String urlParams = generateSoapBody(invocation, endpoint);
 		
 		try {
 			url = new URL(endpoint + "/" + invocation.getObjectID() + "/" + invocation.getMethod());
@@ -72,16 +72,27 @@ public class SOAPMessageProtocol extends MessageProtocol {
 		return null;
 	}
 
-	private String generateParams(InvocationData invocation) {
-		StringBuilder builder = new StringBuilder();
+	private String generateSoapBody(InvocationData invocation, String endpoint) {
 		String prefix = "";
+		    
+	    StringBuilder result = new StringBuilder();
+	    
+	    result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<soap:Envelope xmlns:xsi=\"http:w3.org/2001/XMLSchema-instance\" xmlns:soap=\"http:schemas.xmlsoap.org/soap/envelope/\" xmlns:xs=\"http:www.w3.org/2001/XMLSchema\">"
+	            + "<soap:Header>"
+	            + "</soap:Header>\n");
+	    
+	    result.append("<soap:Body>\n");
+	    
+	    result.append("<" + invocation.getMethod() + " xmlns=\"" + endpoint + "\">\n");
+	    
+	    for(String p:invocation.getParamsName()){
+	      result.append("<" + p + ">" + invocation.getParam(p) + "</" + p + ">\n");
+	    }
+	    
+	    result.append("</" + invocation.getMethod() + ">\n");
+	    result.append("</soap:Body></soap:Envelope>");
 		
-		for (String param: invocation.getParamsName()) {
-			builder.append(prefix);
-			prefix = "&";
-			builder.append(param + "=" + invocation.getParam(param));
-		}
-		
-		return builder.toString();
+	  
+		return result.toString();
 	}
 }

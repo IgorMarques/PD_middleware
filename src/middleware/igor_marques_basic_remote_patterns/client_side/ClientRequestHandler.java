@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import protocols.MessageProtocol;
 import protocols.RestMessageProtocol;
+import protocols.SOAPMessageProtocol;
 
 import middleware.igor_marques_basic_remote_patterns.InvocationData;
 
@@ -32,7 +33,7 @@ public class ClientRequestHandler {
 	private MessageProtocol messageProtocol;
 	
 	public void sendMessage(String endpoint, InvocationData invocation) throws IOException {
-		messageProtocol = new RestMessageProtocol(this); //mudar pra uma factory
+		messageProtocol = new SOAPMessageProtocol(this); //mudar pra uma factory
 		System.out.println(messageProtocol.sendMessage(endpoint, invocation));
 	}
 	
