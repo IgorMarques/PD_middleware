@@ -1,8 +1,7 @@
 package main;
 
-import library.core.Associate;
-import library.core.Book;
-import library.core.Librarian;
+import library.Librarian;
+
 
 public class Client {
 	private Librarian librarian;

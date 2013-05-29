@@ -1,27 +1,27 @@
 package middleware.igor_marques_basic_remote_patterns.server_side;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
 import java.util.ArrayList;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-
-import middleware.igor_marques_basic_remote_patterns.InvocationContext;
-import extension.InvocationInterceptor;
+import lifecycle.RemoteObjectPool;
+import middleware.igor_marques_basic_remote_patterns.InvocationData;
 import extended_infraestructure.IQoSObserver;
+import extension.InvocationInterceptor;
+import extension.InvocationInterceptors;
 
 
 public class Invoker {
 
-	private ArrayList<InvocationInterceptor> interceptors = new ArrayList<InvocationInterceptor>();
+	private RemoteObjectPool objectPool = RemoteObjectPool.getInstance();
+	private InvocationInterceptors interceptors = InvocationInterceptors.getInstance();
 	
 	private ArrayList<IQoSObserver> qosObserver = new ArrayList<IQoSObserver>();
 	
-	public void invoke(InvocationContext invocation){
-		for (InvocationInterceptor ii : interceptors)
-			ii.intercept(invocation);
+	public void invoke(InvocationData invocation){
+		try {
+			interceptors.beforeInvocation(invocation);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callStarted();
@@ -31,5 +31,11 @@ public class Invoker {
 		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
+		
+		try {
+			interceptors.afterInvocation(invocation);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

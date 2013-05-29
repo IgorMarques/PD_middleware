@@ -36,6 +36,7 @@ public class ClientRequestHandler {
 		System.out.println(messageProtocol.sendMessage(endpoint, invocation));
 	}
 	
+	//Teste
 	public static void main(String[] args) throws IOException {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("CityName", "Natal");
