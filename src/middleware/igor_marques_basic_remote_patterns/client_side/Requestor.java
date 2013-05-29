@@ -25,6 +25,8 @@ public class Requestor implements ClientRequestListener {
 	private static Requestor instance = null;
 	static Marshaller marshaller = Marshaller.getInstance();
 	
+	static ClientRequestHandler chandler = ClientRequestHandler.getInstance();
+	
 	static ClientRequestHandlerFactory fac = new ClientRequestHandlerFactory();
 	
 	private static ArrayList<InvocationInterceptor> interceptors = new ArrayList<InvocationInterceptor>();

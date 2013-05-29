@@ -16,6 +16,19 @@ import middleware.igor_marques_basic_remote_patterns.InvocationData;
 
 public class ClientRequestHandler {
 	
+	private static ClientRequestHandler instance = null;
+	
+	private ClientRequestHandler() {
+		 
+	};
+
+	public static ClientRequestHandler getInstance() {
+		if (instance == null) {
+			instance = new ClientRequestHandler();
+		}
+		return instance;
+	}
+	
 	private MessageProtocol messageProtocol;
 	
 	public void sendMessage(String endpoint, InvocationData invocation) throws IOException {
