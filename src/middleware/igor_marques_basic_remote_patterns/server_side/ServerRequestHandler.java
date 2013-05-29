@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import middleware.igor_marques_basic_remote_patterns.InvocationData;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -68,14 +70,17 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 		
         System.out.println("\n\nRequest: " + request);
 		
-        HashMap<String, String> vars = demarshallRequest(request);
+        HashMap<String, Object> vars = demarshallRequest(request);
         
         String response;
         
-        if (vars.get("login").equals("user123") && vars.get("password").equals("rootadmin"))
-        	response = "Login com sucesso";
-        else
-        	response = "Login nao autorizado";
+        String[] spl = t.getRequestURI().getPath().split("/");
+        
+        System.out.println("debug: " + spl[1] + " " + spl[2]);
+        System.out.println(t.getRequestURI().getPath());
+        
+        Invoker invoker = new Invoker();
+        response = (String) invoker.invoke(new InvocationData(spl[1], spl[2], vars, String.class.getName()));
 
 		t.sendResponseHeaders(200, response.length());
 		OutputStream os = t.getResponseBody();
@@ -83,8 +88,8 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 		os.close();
 	}
 	
-	private HashMap<String, String> demarshallRequest(String request) {
-		HashMap<String, String> result = new HashMap<String, String>();
+	private HashMap<String, Object> demarshallRequest(String request) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		String[] keyValue = request.split("&");
 		

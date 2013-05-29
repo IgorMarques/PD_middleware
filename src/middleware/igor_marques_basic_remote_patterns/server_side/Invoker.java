@@ -19,7 +19,9 @@ public class Invoker {
 	
 	private ArrayList<IQoSObserver> qosObserver = new ArrayList<IQoSObserver>();
 	
-	public void invoke(InvocationData invocation){
+	public Object invoke(InvocationData invocation){
+		Object result = null;
+		
 		try {
 			interceptors.beforeInvocation(invocation);
 		} catch (Exception e) {
@@ -56,13 +58,11 @@ public class Invoker {
 				params[i++] = invocation.getParam(ob);
 			}
 			
-			method.invoke(aro, params);
+			result = method.invoke(aro, params);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 
-		
-		
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
 		
@@ -71,6 +71,8 @@ public class Invoker {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return result;
 	}
 	
 	public static void main(String[] args) {
@@ -83,8 +85,8 @@ public class Invoker {
 	}
 	
 	private class Library extends AbstractRemoteObject {
-		public void potato(String hue) {
-			System.out.println("Metodo potato: " + hue);
+		public String potato(String hue) {
+			return "Metodo potato: " + hue;
 		}
 	}
 }

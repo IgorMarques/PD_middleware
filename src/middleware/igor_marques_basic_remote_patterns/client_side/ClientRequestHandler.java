@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 import protocols.MessageProtocol;
 import protocols.RestMessageProtocol;
-import protocols.SOAPMessageProtocol;
 
 import middleware.igor_marques_basic_remote_patterns.InvocationData;
 
@@ -33,7 +32,7 @@ public class ClientRequestHandler {
 	private MessageProtocol messageProtocol;
 	
 	public void sendMessage(String endpoint, InvocationData invocation) throws IOException {
-		messageProtocol = new SOAPMessageProtocol(this); //mudar pra uma factory
+		messageProtocol = new RestMessageProtocol(this); //mudar pra uma factory
 		System.out.println(messageProtocol.sendMessage(endpoint, invocation));
 	}
 	
@@ -41,12 +40,11 @@ public class ClientRequestHandler {
 	public static void main(String[] args) throws IOException {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("CityName", "Natal");
-		params.put("CountryName", "Brazil");
 		
-		InvocationData data = new InvocationData("globalweather.asmx", "GetWeather", params);
+		InvocationData data = new InvocationData("library", "potato", params);
 		
 		ClientRequestHandler crh = new ClientRequestHandler();
-		crh.sendMessage("http://www.webservicex.com", data);
+		crh.sendMessage("http://localhost:3333", data);
 	}
 
 	public static String executePost(String targetURL, String urlParameters) {
@@ -59,10 +57,10 @@ public class ClientRequestHandler {
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded");
+				"application/x-www-form-urlencoded");
 
 			connection.setRequestProperty("Content-Length",
-					"" + Integer.toString(urlParameters.getBytes().length));
+				"" + Integer.toString(urlParameters.getBytes().length));
 			connection.setRequestProperty("Content-Language", "pt-BR");
 
 			connection.setUseCaches(false);

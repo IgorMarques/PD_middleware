@@ -18,7 +18,6 @@ import java.util.HashMap;
 
 public class Requestor implements ClientRequestListener {
 	
-	//mudar para pegar de um arquivo de configuracao
 	static String protocol = "SOAP";
 	Class<?> protocolClass = SOAPClientRequestHandler.class;
 	
@@ -44,26 +43,20 @@ public class Requestor implements ClientRequestListener {
 		return instance;
 	}
 
-	public void invoke(String object, String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
+	public void invoke(String objectID, String method, HashMap<String, Object> params) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		
 		String namespaceURI ="";
 		
 		//for(IQoSObserver iqs : qosObserver)
 		//	iqs.callStarted();
 
-		Message msg = new Message(object, objectID, method, params);
+		InvocationData msg = new InvocationData(objectID, method, params);
 			
 		InvocationData invocation = new InvocationData(msg);
 		
-		//for (InvocationInterceptor ii : interceptors)
-		//	ii.intercept(invocation);
-					
-		IClientRequestHandler clientHandler = fac.getImplementation(protocol);
-		
-		StringBuilder message = marshaller.marshall(invocation, namespaceURI);
-		
-		clientHandler.sendMessage(message, method, "127.0.0.1"); //FALTA BOTAR O ENDPOINT
-		
+		ClientRequestHandler chr = ClientRequestHandler.getInstance();
+		chr.sendMessage("http://localhost:3333", invocation);
+				
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callFinished();
 	}
@@ -72,10 +65,10 @@ public class Requestor implements ClientRequestListener {
 	public static void main(String[] args) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SOAPException {
 		Requestor requestor = Requestor.getInstance();
 		
-		HashMap<String, Object> params = null;
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("hue", "br");
 		
-		
-		requestor.invoke("a", "b", protocol, params);
+		requestor.invoke("library", "potato", params);
 	}
 
 	@Override
