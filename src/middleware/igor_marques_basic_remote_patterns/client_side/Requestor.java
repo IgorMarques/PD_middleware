@@ -16,7 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Requestor {
+public class Requestor implements ClientRequestListener {
 	
 	//mudar para pegar de um arquivo de configuracao
 	static String protocol = "SOAP";
@@ -74,6 +74,10 @@ public class Requestor {
 		
 		
 		requestor.invoke("a", "b", protocol, params);
+	}
+
+	@Override
+	public void messageReceived(Message message) {		
 	}
 }
 

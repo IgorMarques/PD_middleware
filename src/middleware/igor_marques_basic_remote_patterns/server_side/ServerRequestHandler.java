@@ -6,13 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.sun.net.httpserver.Headers;
@@ -50,23 +49,51 @@ public class ServerRequestHandler implements IServerRequestHandler, HttpHandler 
 
 	@Override
 	public void handle(HttpExchange t) throws IOException {
+		InputStream  is = t.getRequestBody();
+		StringBuffer buf = new StringBuffer();
+		int b;
+		String request;
 		
-		//mudar pra resposta de verdade
-		String response = ""
-				+ "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-				+ "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">"
-				+ "<soap12:Body>"
-				+ "<GetWeatherResponse xmlns=\"http://www.webserviceX.NET\">"
-				+ "<GetWeatherResult>string</GetWeatherResult>"
-				+ "</GetWeatherResponse>" + "</soap12:Body>"
-				+ "</soap12:Envelope>";
+        while ((b = is.read()) != -1) {
+            buf.append((char) b);
+        }
 
-		//System.out.println(response);
+        is.close();
+
+        if (buf.length() > 0) {
+            request = URLDecoder.decode(buf.toString(), "UTF-8");
+        } else {
+            request = "huehuehuahueaheuhaeuaheuaheuha";
+        }
+		
+        System.out.println("\n\nRequest: " + request);
+		
+        HashMap<String, String> vars = demarshallRequest(request);
+        
+        String response;
+        
+        if (vars.get("login").equals("user123") && vars.get("password").equals("rootadmin"))
+        	response = "Login com sucesso";
+        else
+        	response = "Login nao autorizado";
+
 		t.sendResponseHeaders(200, response.length());
 		OutputStream os = t.getResponseBody();
 		os.write(response.getBytes());
 		os.close();
+	}
+	
+	private HashMap<String, String> demarshallRequest(String request) {
+		HashMap<String, String> result = new HashMap<String, String>();
 		
+		String[] keyValue = request.split("&");
+		
+		for (String kv: keyValue) {
+			String[] aux = kv.split("=");
+			result.put(aux[0], aux[1]);
+		}
+		
+		return result;
 	}
 
 	public void httpExchangePrinter(HttpExchange t) throws IOException {
