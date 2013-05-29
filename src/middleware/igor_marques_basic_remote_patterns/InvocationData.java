@@ -7,14 +7,15 @@ public class InvocationData {
 
 	private String objectID;
 	private String method;
-	//public String[] params;
+	private String[] paramsType;
 	
 	private HashMap<String, Object> params = new HashMap<String, Object>();
 	
-	public InvocationData(String objectID, String method, HashMap<String, Object> params){
+	public InvocationData(String objectID, String method, HashMap<String, Object> params, String... paramsType){
 		this.objectID = objectID;
 		this.method = method;
 		this.params = params;
+		this.paramsType = paramsType;
 		
 	}
 	
@@ -22,9 +23,13 @@ public class InvocationData {
 		this.objectID = message.objectID;
 		this.method = message.method;
 		this.params = message.params;
+		this.paramsType = message.paramsType;
 	}
 
 
+	public String[] getParamsType() {
+		return paramsType;
+	}
 	public Set<String> getParamsName() {
 		return params.keySet();
 	}
