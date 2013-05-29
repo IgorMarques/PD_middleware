@@ -25,13 +25,13 @@ public class ClientRequestHandler {
 	
 	public static void main(String[] args) throws IOException {
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("login", "user123");
-		params.put("password", "rootadmin");
+		params.put("CityName", "Natal");
+		params.put("CountryName", "Brazil");
 		
-		InvocationData data = new InvocationData("hue", "br", params);
+		InvocationData data = new InvocationData("globalweather.asmx", "GetWeather", params);
 		
 		ClientRequestHandler crh = new ClientRequestHandler();
-		crh.sendMessage("http://localhost:3333", data);
+		crh.sendMessage("http://www.webservicex.com", data);
 	}
 
 	public static String executePost(String targetURL, String urlParameters) {

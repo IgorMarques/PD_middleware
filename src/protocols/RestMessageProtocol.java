@@ -7,6 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+
+import org.freeshell.zs.common.HtmlManipulator;
 
 import middleware.igor_marques_basic_remote_patterns.InvocationData;
 import middleware.igor_marques_basic_remote_patterns.client_side.ClientRequestHandler;
@@ -33,7 +36,6 @@ public class RestMessageProtocol extends MessageProtocol {
 					"application/x-www-form-urlencoded");
 			connection.setRequestProperty("Content-Length",
 				Integer.toString(urlParams.toString().getBytes().length));
-			connection.setRequestProperty("Content-Language", "pt-BR");
 
 			connection.setUseCaches(false);
 			connection.setDoInput(true);
@@ -58,7 +60,7 @@ public class RestMessageProtocol extends MessageProtocol {
 			}
 			rd.close();
 			
-			return response.toString();
+			return HtmlManipulator.replaceHtmlEntities(response.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
