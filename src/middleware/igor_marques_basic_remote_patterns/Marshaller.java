@@ -4,20 +4,11 @@ package middleware.igor_marques_basic_remote_patterns;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import middleware.igor_marques_basic_remote_patterns.Message;
 
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPBodyElement;
-import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
 
 
 public class Marshaller{
@@ -27,13 +18,13 @@ public class Marshaller{
 	protected Marshaller(){};
 	
 	public synchronized static Marshaller getInstance(){
-		if (instance==null){
+		if (instance==null) {
 			instance = new Marshaller();
 		}
 		return instance;
 	}
 	
-	public StringBuilder marshall(Invocation message, String namespaceURI) throws SOAPException{
+	public StringBuilder marshall(InvocationData message, String namespaceURI) throws SOAPException{
 	
 		SOAPMessage soapMessage = null;
 					
@@ -47,13 +38,13 @@ public class Marshaller{
 		
 		result.append("<soap:Body>\n");
 		
-		result.append("<" + message.method + " xmlns=\"" + namespaceURI + "\">\n");
+		result.append("<" + message.getMethod() + " xmlns=\"" + namespaceURI + "\">\n");
 		
 		for(String p:message.getParamsName()){
 			result.append("<" + p + ">" + message.getParam(p) + "</" + p + ">\n");
 		}
 		
-		result.append("</" + message.method + ">\n");
+		result.append("</" + message.getMethod() + ">\n");
 		result.append("</soap:Body></soap:Envelope>");
 	
 		
@@ -62,7 +53,7 @@ public class Marshaller{
 			soapMessage = MessageFactory.newInstance().createMessage(null, is);
 			MimeHeaders mimeHeader = soapMessage.getMimeHeaders();
 			
-			mimeHeader.setHeader("SOAPAction", namespaceURI + "/"+ message.method);
+			mimeHeader.setHeader("SOAPAction", namespaceURI + "/"+ message.getMethod());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

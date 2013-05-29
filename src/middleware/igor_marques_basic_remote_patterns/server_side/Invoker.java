@@ -1,12 +1,14 @@
 package middleware.igor_marques_basic_remote_patterns.server_side;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import lifecycle.RemoteObjectPool;
 import middleware.igor_marques_basic_remote_patterns.InvocationData;
 import extended_infraestructure.IQoSObserver;
-import extension.InvocationInterceptor;
 import extension.InvocationInterceptors;
 
 
@@ -27,6 +29,9 @@ public class Invoker {
 		for(IQoSObserver iqs : qosObserver)
 			iqs.callStarted();
 		
+		Library lib = new Library();
+		objectPool.registerObject("library", lib);
+		
 		//pega o objeto da pool
 		AbstractRemoteObject aro = objectPool.getObject(invocation.getObjectID());
 		
@@ -42,8 +47,17 @@ public class Invoker {
 			//pega o metodo
 			Method method = aro.getClass().getMethod(invocation.getMethod(), methodSignature);
 
+			System.out.println(Arrays.toString(methodSignature));
 			
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+			Object[] params = new Object[invocation.getParamsName().size()];
+			int i = 0;
+			
+			for (String ob: invocation.getParamsName()) {
+				params[i++] = invocation.getParam(ob);
+			}
+			
+			method.invoke(aro, params);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 
@@ -56,6 +70,21 @@ public class Invoker {
 			interceptors.afterInvocation(invocation);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		Invoker invoker = new Invoker();
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("hue", "br");
+		
+		invoker.invoke(new InvocationData("library", "potato", params, String.class.getName()));
+	}
+	
+	private class Library extends AbstractRemoteObject {
+		public void potato(String hue) {
+			System.out.println("Metodo potato: " + hue);
 		}
 	}
 }

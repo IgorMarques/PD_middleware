@@ -20,7 +20,7 @@ public class ClientRequestHandler {
 	
 	private ClientRequestHandler() {
 		 
-	};
+	}
 
 	public static ClientRequestHandler getInstance() {
 		if (instance == null) {
